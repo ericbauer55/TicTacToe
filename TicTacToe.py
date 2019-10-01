@@ -76,3 +76,6 @@ class TicTacToe:
             pass
         print('Computer chose to move into "{0}" area'.format(board_area))
         self._next_move = 'player'
+
+if __name__ == '__main__':
+    pass
