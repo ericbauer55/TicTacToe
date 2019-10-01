@@ -5,7 +5,7 @@ from typing import List, Dict
 class TicTacToe:
     def __init__(self):
         self._player: Dict[str, str] = {'marker': ''}
-        self._computer: Dict[str, str] = {'marker': '', 'play_style': 'random'}
+        self._computer: Dict[str, str] = {'marker': '', 'strategy': 'random'}
         self._board: Dict[str, str] = {'top-L': ' ', 'top-M': ' ', 'top-R': ' ',
                                        'mid-L': ' ', 'mid-M': ' ', 'mid-R': ' ',
                                        'bot-L': ' ', 'bot-M': ' ', 'bot-R': ' '}
