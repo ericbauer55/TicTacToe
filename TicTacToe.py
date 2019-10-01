@@ -15,7 +15,7 @@ class TicTacToe:
         self.turn_number: int = 1  # restricted to be between 1 and 9
 
     @property
-    def winner(self) -> str:
+    def _winner(self) -> str:
         """
         This property checks who the winner of the game is.
         :return: only returns one of the following strings {'undecided', 'draw', 'computer', 'player'}
@@ -36,7 +36,7 @@ class TicTacToe:
         print('{0}|{1}|{2}'.format(self._board['bot-L'], self._board['bot-M'], self._board['bot-R']))
 
     @staticmethod
-    def get_valid_input(input_prompt: str, valid_input_list: List[str]) -> str:
+    def _get_valid_input(input_prompt: str, valid_input_list: List[str]) -> str:
         """
         This generically prompts the user to input a string that is in the discrete valid list
         :param input_prompt: string to prompt the user to input with
@@ -49,22 +49,22 @@ class TicTacToe:
         else:
             print("Input {0} is invalid.\nExpected: ".format(x))
             print("".join(['{0},\t'.format(vin) for vin in valid_input_list]))
-            return TicTacToe.get_valid_input(input_prompt, valid_input_list)  # try again
+            return TicTacToe._get_valid_input(input_prompt, valid_input_list)  # try again
 
-    def set_player_marker(self) -> None:
+    def _set_player_marker(self) -> None:
         """This function prompts the user to choose X's or O's for their game"""
-        self._player['marker'] = TicTacToe.get_valid_input('Choose your marker ("X" or "O"): ', self._VALID_MARKERS)
+        self._player['marker'] = TicTacToe._get_valid_input('Choose your marker ("X" or "O"): ', self._VALID_MARKERS)
 
-    def get_player_move(self) -> None:
+    def _get_player_move(self) -> None:
         """This function prompts the user to choose a move from the valid list of moves. Then that move is marked on
         the game board and the chosen board area is removed from the list of valid moves"""
         prompt: str = "Choose move from: " + "".join(['{0},\t'.format(vin) for vin in self._valid_moves])
-        board_area: str = TicTacToe.get_valid_input(prompt, self._valid_moves)
+        board_area: str = TicTacToe._get_valid_input(prompt, self._valid_moves)
         self._board[board_area] = self._player['marker']  # fill in the chosen board area with player's marker
         self._valid_moves.remove(board_area)  # remove the chosen area from the list of valid moves
         self._next_move = 'computer'
 
-    def get_computer_move(self) -> None:
+    def _get_computer_move(self) -> None:
         """This function generates a move from the computer based on the computer player's strategy. Then that move
         is marked on the game board and the chosen board area is removed from the list of valid moves"""
         if self._computer['strategy'] == 'random':
@@ -77,5 +77,11 @@ class TicTacToe:
         print('Computer chose to move into "{0}" area'.format(board_area))
         self._next_move = 'player'
 
+    def play(self) -> None:
+        """Implements the main game setup and loop"""
+        pass
+
+
 if __name__ == '__main__':
-    pass
+    game = TicTacToe()
+    game.play()
