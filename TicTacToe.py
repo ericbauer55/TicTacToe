@@ -48,8 +48,7 @@ class TicTacToe:
         if x in valid_input_list:
             return x
         else:
-            print("Input {0} is invalid.\nExpected: ".format(x))
-            print("".join(['{0},\t'.format(vin) for vin in valid_input_list]))
+            print("Input {0} is invalid.".format(x))
             return TicTacToe._get_valid_input(input_prompt, valid_input_list)  # try again
 
     def _set_player_marker(self) -> None:
