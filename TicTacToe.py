@@ -53,7 +53,9 @@ class TicTacToe:
 
     def _set_player_marker(self) -> None:
         """This function prompts the user to choose X's or O's for their game"""
-        self._player['marker'] = TicTacToe._get_valid_input('Choose your marker ("X" or "O"): ', self._VALID_MARKERS)
+        chosen_marker = TicTacToe._get_valid_input('Choose your marker ("X" or "O"): ', self._VALID_MARKERS)
+        self._player['marker'] = chosen_marker
+        self._computer['marker'] = str(set(self._VALID_MARKERS).difference(chosen_marker))  # get the other one
 
     def _get_player_move(self) -> None:
         """This function prompts the user to choose a move from the valid list of moves. Then that move is marked on
@@ -67,8 +69,9 @@ class TicTacToe:
     def _get_computer_move(self) -> None:
         """This function generates a move from the computer based on the computer player's strategy. Then that move
         is marked on the game board and the chosen board area is removed from the list of valid moves"""
+        board_area: str = ''
         if self._computer['strategy'] == 'random':
-            board_area: str = random.choice(self._valid_moves)
+            board_area = random.choice(self._valid_moves)
             self._board[board_area] = self._computer['marker']  # fill in the chosen board area with computer's marker
             self._valid_moves.remove(board_area)  # remove the chosen area from the list of valid moves
         elif self._computer['strategy'] == 'optimal':
@@ -79,7 +82,8 @@ class TicTacToe:
 
     def play(self) -> None:
         """Implements the main game setup and loop"""
-        pass
+        self._set_player_marker()
+
 
 
 if __name__ == '__main__':
