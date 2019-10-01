@@ -56,10 +56,21 @@ class TicTacToe:
         self._player['marker'] = TicTacToe.get_valid_input('Choose your marker ("X" or "O"): ', self._VALID_MARKERS)
 
     def get_player_move(self) -> None:
+        """This function prompts the user to choose a move from the valid list of moves. Then that move is marked on
+        the game board and the chosen board area is removed from the list of valid moves"""
         prompt: str = "Choose move from: " + "".join(['{0},\t'.format(vin) for vin in self._valid_moves])
         board_area: str = TicTacToe.get_valid_input(prompt, self._valid_moves)
         self._board[board_area] = self._player['marker']  # fill in the chosen board area with player's marker
         self._valid_moves.remove(board_area)  # remove the chosen area from the list of valid moves
 
-
+    def get_computer_move(self) -> None:
+        """This function generates a move from the computer based on the computer player's strategy. Then that move
+        is marked on the game board and the chosen board area is removed from the list of valid moves"""
+        if self._computer['strategy'] == 'random':
+            board_area: str = random.choice(self._valid_moves)
+            self._board[board_area] = self._computer['marker']  # fill in the chosen board area with computer's marker
+            self._valid_moves.remove(board_area)  # remove the chosen area from the list of valid moves
+        elif self._computer['strategy'] == 'optimal':
+            # TODO: implement minimax strategy
+            pass
 
