@@ -12,7 +12,7 @@ class TicTacToe:
         self._VALID_MARKERS: List[str] = ['X', 'O']  # only these markers are allowed
         self._valid_moves: List[str] = list(self._board.keys())  # all moves are valid at the start
         self._next_move: str = random.choice(['player', 'computer'])
-        self._turn_number: int = 1  # restricted to be between 1 and 9
+        self.turn_number: int = 1  # restricted to be between 1 and 9
 
     @property
     def winner(self) -> str:
@@ -62,6 +62,7 @@ class TicTacToe:
         board_area: str = TicTacToe.get_valid_input(prompt, self._valid_moves)
         self._board[board_area] = self._player['marker']  # fill in the chosen board area with player's marker
         self._valid_moves.remove(board_area)  # remove the chosen area from the list of valid moves
+        self._next_move = 'computer'
 
     def get_computer_move(self) -> None:
         """This function generates a move from the computer based on the computer player's strategy. Then that move
@@ -73,4 +74,5 @@ class TicTacToe:
         elif self._computer['strategy'] == 'optimal':
             # TODO: implement minimax strategy
             pass
-
+        print('Computer chose to move into "{0}" area'.format(board_area))
+        self._next_move = 'player'
