@@ -56,7 +56,7 @@ class TicTacToe:
         """This function prompts the user to choose X's or O's for their game"""
         chosen_marker = TicTacToe._get_valid_input('Choose your marker ("X" or "O"): ', self._VALID_MARKERS)
         self._player['marker'] = chosen_marker
-        self._computer['marker'] = str(set(self._VALID_MARKERS).difference(chosen_marker))  # get the other one
+        self._computer['marker'] = set(self._VALID_MARKERS).difference(chosen_marker).pop()  # get the other one
 
     def _get_player_move(self) -> None:
         """This function prompts the user to choose a move from the valid list of moves. Then that move is marked on
