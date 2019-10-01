@@ -35,4 +35,13 @@ class TicTacToe:
         print('{0}|{1}|{2}'.format(self._board['bot-L'], self._board['bot-M'], self._board['bot-R']))
 
     @staticmethod
-    def get_valid_input(self):
+    def get_valid_input(input_prompt: str, valid_input_list: List[str]) -> str:
+        x = input(input_prompt)
+        if x in valid_input_list:
+            return x
+        else:
+            print("Input {0} is invalid.\nExpected: ".format(x))
+            print("".join(['{0},\t'.format(vin) for vin in valid_input_list]))
+            return TicTacToe.get_valid_input(input_prompt, valid_input_list)  # try again
+
+
