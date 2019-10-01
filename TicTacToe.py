@@ -12,7 +12,7 @@ class TicTacToe:
         self._VALID_MARKERS: List[str] = ['X', 'O']  # only these markers are allowed
         self._valid_moves: List[str] = list(self._board.keys())  # all moves are valid at the start
         self._next_move: str = random.choice(['player', 'computer'])
-        self.turn_number: int = 1  # restricted to be between 1 and 9
+        self._turn_number: int = 1  # restricted to be between 1 and 9
 
     @property
     def _winner(self) -> str:
@@ -82,8 +82,22 @@ class TicTacToe:
 
     def play(self) -> None:
         """Implements the main game setup and loop"""
+        # SETUP
         self._set_player_marker()
-
+        print('The {0} will be going first...'.format(self._next_move))
+        # LOOP
+        for i in range(1, 10):
+            self._turn_number = i
+            print('=' * 15 + 'Turn {}'.format(i) + '=' * 15)
+            print(self)
+            if self._next_move == 'player':
+                self._get_player_move()
+            else:  # self._next_move == 'computer'
+                self._get_computer_move()
+            if self._winner != 'undecided':
+                break
+        print('=' * 37)
+        print('The winner of the game is...{}!'.format(self._winner))
 
 
 if __name__ == '__main__':
