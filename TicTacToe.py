@@ -54,14 +54,14 @@ class TicTacToe:
 
     def _set_player_marker(self) -> None:
         """This function prompts the user to choose X's or O's for their game"""
-        chosen_marker = TicTacToe._get_valid_input('Choose your marker ("X" or "O"): ', self._VALID_MARKERS)
+        chosen_marker = TicTacToe._get_valid_input('Choose your marker ("X" or "O"):\n>', self._VALID_MARKERS)
         self._player['marker'] = chosen_marker
         self._computer['marker'] = set(self._VALID_MARKERS).difference(chosen_marker).pop()  # get the other one
 
     def _get_player_move(self) -> None:
         """This function prompts the user to choose a move from the valid list of moves. Then that move is marked on
         the game board and the chosen board area is removed from the list of valid moves"""
-        prompt: str = "Choose move from: " + "".join(['{0},\t'.format(vin) for vin in self._valid_moves])
+        prompt: str = "Choose move from: " + ", ".join(['{0}'.format(vin) for vin in self._valid_moves]) + '\n>'
         board_area: str = TicTacToe._get_valid_input(prompt, self._valid_moves)
         self._board[board_area] = self._player['marker']  # fill in the chosen board area with player's marker
         self._valid_moves.remove(board_area)  # remove the chosen area from the list of valid moves
@@ -84,20 +84,21 @@ class TicTacToe:
     def play(self) -> None:
         """Implements the main game setup and loop"""
         # SETUP
+        print(self)
         self._set_player_marker()
         print('The {0} will be going first...'.format(self._next_move))
         # LOOP
         for i in range(1, 10):
             self._turn_number = i
-            print('=' * 15 + 'Turn {}'.format(i) + '=' * 15)
-            print(self)
+            print('=' * 15 + '[Turn {}]'.format(i) + '=' * 15)
             if self._next_move == 'player':
                 self._get_player_move()
             else:  # self._next_move == 'computer'
                 self._get_computer_move()
+            print(self)  # print game board before winner is checked
             if self._winner != 'undecided':
                 break
-        print('=' * 37)
+        print('=' * 39)
         print('The winner of the game is...{}!'.format(self._winner))
 
 
