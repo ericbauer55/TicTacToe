@@ -1,17 +1,17 @@
 import random
-
+from typing import List, Dict
 
 class TicTacToe:
     def __init__(self):
-        self._player = {'marker': ''}
-        self._computer = {'marker': '', 'play_style': 'random'}
-        self._board = {'top-L': ' ', 'top-M': ' ', 'top-R': ' ',
-                       'mid-L': ' ', 'mid-M': ' ', 'mid-R': ' ',
-                       'bot-L': ' ', 'bot-M': ' ', 'bot-R': ' '}
-        self._VALID_MARKERS = ['X', 'O']  # only these markers are allowed
-        self._valid_moves = list(self._board.keys())  # all moves are valid at the start
-        self._next_move = random.choice(['player', 'computer'])
-        self._turn_number = 1  # restricted to be between 1 and 9
+        self._player: Dict[str, str] = {'marker': ''}
+        self._computer: Dict[str, str] = {'marker': '', 'play_style': 'random'}
+        self._board: Dict[str, str] = {'top-L': ' ', 'top-M': ' ', 'top-R': ' ',
+                                       'mid-L': ' ', 'mid-M': ' ', 'mid-R': ' ',
+                                       'bot-L': ' ', 'bot-M': ' ', 'bot-R': ' '}
+        self._VALID_MARKERS: List[str] = ['X', 'O']  # only these markers are allowed
+        self._valid_moves: List[str] = list(self._board.keys())  # all moves are valid at the start
+        self._next_move: str = random.choice(['player', 'computer'])
+        self._turn_number: int = 1  # restricted to be between 1 and 9
 
     @property
     def winner(self) -> str:
@@ -34,3 +34,5 @@ class TicTacToe:
         print('-+-+-')
         print('{0}|{1}|{2}'.format(self._board['bot-L'], self._board['bot-M'], self._board['bot-R']))
 
+    @staticmethod
+    def get_valid_input(self):
