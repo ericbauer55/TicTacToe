@@ -27,13 +27,14 @@ class TicTacToe:
         # TODO: create the win logic to check if someone has won, or the game is a draw
         return 'undecided'
 
-    def __str__(self):
+    def __str__(self) -> str:
         """Over ride the string magic method to print the game board"""
-        print('{0}|{1}|{2}'.format(self._board['top-L'], self._board['top-M'], self._board['top-R']))
-        print('-+-+-')
-        print('{0}|{1}|{2}'.format(self._board['mid-L'], self._board['mid-M'], self._board['mid-R']))
-        print('-+-+-')
-        print('{0}|{1}|{2}'.format(self._board['bot-L'], self._board['bot-M'], self._board['bot-R']))
+        rows =['{0}|{1}|{2}'.format(self._board['top-L'], self._board['top-M'], self._board['top-R']),
+                '-+-+-',
+                '{0}|{1}|{2}'.format(self._board['mid-L'], self._board['mid-M'], self._board['mid-R']),
+                '-+-+-',
+                '{0}|{1}|{2}'.format(self._board['bot-L'], self._board['bot-M'], self._board['bot-R'])]
+        return '\n'.join(rows)
 
     @staticmethod
     def _get_valid_input(input_prompt: str, valid_input_list: List[str]) -> str:
