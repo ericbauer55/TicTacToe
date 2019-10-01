@@ -1,5 +1,5 @@
 import random
-from typing import List, Dict
+from typing import List, Dict, Tuple
 
 
 class TicTacToe:
@@ -24,8 +24,37 @@ class TicTacToe:
             # game cannot possibly be won until the first player has gone at least 3 times. This happens by turn 5
             # until then, don't bother checking win conditions
             return 'undecided'
-        # TODO: create the win logic to check if someone has won, or the game is a draw
-        return 'undecided'
+        if self._has_three_in_a_row('player'):
+            return 'player'
+        if self._has_three_in_a_row('computer'):
+            return 'computer'
+        if self._turn_number == 9:
+            return 'draw' # the game has ended
+
+    def _has_three_in_a_row(self, player_name: str) -> bool:
+        """This checks every sequence of 3 in the game board to see if :param player_name has won"""
+        three_in_a_row: bool = False  # assume it isn't true to start
+        marker: str = self._player['marker'] if player_name == 'player' else self._computer['marker']
+        # Establish all sequences to check
+        seqs: Dict[str, Tuple[str, str, str]] = {   # check columns
+                                                    'col-L': ('top-L', 'mid-L', 'bot-L'),
+                                                    'col-M': ('top-M', 'mid-M', 'bot-M'),
+                                                    'col-R': ('top-R', 'mid-R', 'bot-R'),
+                                                    # check rows
+                                                    'row-top': ('top-L', 'top-M', 'top-R'),
+                                                    'row-mid': ('mid-L', 'mid-M', 'mid-R'),
+                                                    'row-bot': ('bot-L', 'bot-M', 'bot-R'),
+                                                    # check diagonals
+                                                    'diag-1': ('bot-L', 'mid-M', 'top-R'),
+                                                    'diag-2': ('top-L', 'mid-M', 'bot-R')}
+        # Iterate through each sequence to check if those 3 areas are equal to marker
+        for seq in seqs.values():
+            area_markers = [self._board[area] for area in seq]  # retrieve a list of the area markers in that sequence
+            if "".join(area_markers) == marker * 3:  # if all area markers are = 'XXX' or 'OOO' then that is a success
+                three_in_a_row = True
+                break
+
+        return three_in_a_row
 
     def __str__(self) -> str:
         """Over ride the string magic method to print the game board"""
