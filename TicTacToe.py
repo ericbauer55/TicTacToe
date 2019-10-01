@@ -24,12 +24,15 @@ class TicTacToe:
             # game cannot possibly be won until the first player has gone at least 3 times. This happens by turn 5
             # until then, don't bother checking win conditions
             return 'undecided'
-        if self._has_three_in_a_row('player'):
-            return 'player'
-        if self._has_three_in_a_row('computer'):
-            return 'computer'
-        if self._turn_number == 9:
-            return 'draw' # the game has ended
+        else:
+            if self._has_three_in_a_row('player'):
+                return 'player'
+            if self._has_three_in_a_row('computer'):
+                return 'computer'
+            if self._turn_number == 9:
+                return 'draw' # the game has ended
+            return 'undecided'
+
 
     def _has_three_in_a_row(self, player_name: str) -> bool:
         """This checks every sequence of 3 in the game board to see if :param player_name has won"""
