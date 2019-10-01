@@ -1,6 +1,7 @@
 import random
 from typing import List, Dict
 
+
 class TicTacToe:
     def __init__(self):
         self._player: Dict[str, str] = {'marker': ''}
@@ -53,4 +54,12 @@ class TicTacToe:
     def set_player_marker(self) -> None:
         """This function prompts the user to choose X's or O's for their game"""
         self._player['marker'] = TicTacToe.get_valid_input('Choose your marker ("X" or "O"): ', self._VALID_MARKERS)
+
+    def get_player_move(self) -> None:
+        prompt: str = "Choose move from: " + "".join(['{0},\t'.format(vin) for vin in self._valid_moves])
+        board_area: str = TicTacToe.get_valid_input(prompt, self._valid_moves)
+        self._board[board_area] = self._player['marker']  # fill in the chosen board area with player's marker
+        self._valid_moves.remove(board_area)  # remove the chosen area from the list of valid moves
+
+
 
